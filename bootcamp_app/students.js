@@ -16,9 +16,10 @@ pool
     SELECT students.id as student_id, students.name as name, cohorts.name as cohort
     FROM students
     JOIN cohorts ON cohorts.id = cohort_id
-    WHERE cohorts.name LIKE '%${cohortName}%'
+    WHERE cohorts.name LIKE $1 
     LIMIT ${maxResults};
-    `
+    `,
+    [`%${cohortName}%`]
   )
   .then((res) => {
     res.rows.forEach((user) => {
